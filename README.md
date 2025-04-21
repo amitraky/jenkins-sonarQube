@@ -4,7 +4,8 @@
 
 #pipeline
 
-```pipeline {
+```
+pipeline {
     agent any
     tools{
         jdk  'jdk21'
@@ -51,4 +52,46 @@
         //     }
         // }
     }
+}
+```
+
+
+
+## Remote Connection after click approve will go next stage  
+
+```pipeline {
+    agent any
+
+    stages {
+        stage('Connect Remote Server') {
+            steps {
+                sshagent(['95876b68-024b-4330-8090-ca2a62592b26']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no -p 20202 anshul@10.192.1.86 "
+                        echo 'Connected to remote server!'
+                        ls -l
+                        pwd
+                        mkdir jenkinsamit0200f
+                        "
+                    '''
+                }
+            }
+        }
+
+        stage('Approve Deployment') {
+            steps {
+                input message: 'Click "Proceed" to start deployment', ok: 'Deploy'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo '🚀 Deployment stage running...'
+                // Add your deployment commands here
+            }
+        }
+    }
 }```
+
+ 
+
