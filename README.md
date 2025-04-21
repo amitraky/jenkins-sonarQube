@@ -18,7 +18,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'dev-main', credentialsId: 'fa734e19-87ec-473a-9d55-5dfbec986f40', url: 'https://amitkumarprajapati@bitbucket.org/zcsprojects/zoho-saas.git'
+                git branch: 'dev-main', credentialsId: 'fa734e19-87ec-473a-9d55-5dfbec986f40', url: 'https://username@bitbucket.org/zcsprojects/zoho-saas.git'
              }
         }
         // stage('COMPILE') {
@@ -67,7 +67,7 @@ pipeline {
             steps {
                 sshagent(['95876b68-024b-4330-8090-ca2a62592b26']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no -p 20202 anshul@10.192.1.86 "
+                        ssh -o StrictHostKeyChecking=no -p 20202 anshul@server-ip-address "
                         echo 'Connected to remote server!'
                         ls -l
                         pwd
